@@ -1,14 +1,54 @@
-<!DOCTYPE html>
 <html>
-  <head>
-  <title>TwicPics Now Supports Video Delivery, Manipulation, and Optimization!</title>
-  </head>
-  <body>
-    <h1> Watch the trailer for Star Wars Episode IX: The Rise of Skywalker on my site! </h1>
-      <video controls>
-        <source src="star-wars.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    //<iframe width="560" height="315" src="https://www.youtube.com/embed/8Qn_spdM5Zg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-  </body>
+
+<head>
+  <!-- viewport meta must come before any media queries -->
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes, shrink-to-fit=no" />
+
+  <!-- viewport-dependent video poster preloads -->
+  <link rel="preload" href="94aeb0f1-3796-4bdf-acdd-ccba5a23cfbf%2Fdesktop.jpg" as="image" media="all and (min-width:480px)">
+  <link rel="preload" href="94aeb0f1-3796-4bdf-acdd-ccba5a23cfbf%2Fmobile.jpg" as="image" media="all and (max-width:479px)">
+</head>
+
+<body>
+  <header>
+    <h1>
+      My Shop
+      <span class="width-display" id="width-display">TBD</span>
+    </h1>
+  </header>
+  <div>
+    <video id="hero-video" class="full-width-video" loop autoplay playsinline loop muted data-desktop-src="94aeb0f1-3796-4bdf-acdd-ccba5a23cfbf%2Fdesktop.mp4" data-desktop-poster="94aeb0f1-3796-4bdf-acdd-ccba5a23cfbf%2Fdesktop.jpg" data-mobile-src="94aeb0f1-3796-4bdf-acdd-ccba5a23cfbf%2Fmobile.mp4" data-mobile-poster="94aeb0f1-3796-4bdf-acdd-ccba5a23cfbf%2Fmobile.jpg>
+    </video>
+    <script>
+      /* define our wide breakpoint for the desktop video - this must match the CSS and preloads! */
+      const WIDE_VIEWPORT = 480;
+      /* define a match on the media query for us to share logic with CSS in JS */
+      const wideViewport = window.matchMedia(`(min-width: ${WIDE_VIEWPORT}px)`)
+
+      function resizeVideo(wideViewport) {
+        let videoEl = document.getElementById("hero-video");
+        // default to mobile video source and poster
+        let src = videoEl.dataset.mobileSrc;
+        let poster = videoEl.dataset.mobilePoster;
+        let widthDisplay = 'MOBILE';
+        if (wideViewport.matches) {
+          // override for desktop if the media query for a wide vieport matches
+          src = videoEl.dataset.desktopSrc;
+          poster = videoEl.dataset.desktopPoster;
+          widthDisplay = 'DESKTOP';
+        }
+        if (videoEl.src !== src) {
+          // only override values if they differ
+          videoEl.src = src;
+          videoEl.poster = poster;
+        }
+        document.getElementById('width-display').textContent = widthDisplay;
+      }
+      wideViewport.addListener(resizeVideo)
+      resizeVideo(wideViewport)
+    </script>
+  </div>
+  <p>Bacon ipsum dolor amet frankfurter filet mignon pork loin buffalo, bacon bresaola beef ribs pig flank meatloaf ham hock chuck ground round shoulder. Spare ribs biltong pork chop pig, pork sirloin capicola. Tri-tip fatback tongue, capicola filet mignon landjaeger t-bone salami buffalo ball tip spare ribs. Picanha ham kevin brisket leberkas. Hamburger bresaola t-bone, leberkas ham chicken strip steak pork belly tongue buffalo turkey chislic ham hock shoulder. Pig pancetta capicola cupim flank. Cow jowl filet mignon, ribeye spare ribs t-bone burgdoggen fatback frankfurter ham tongue sirloin salami.</p>
+</body>
+
 </html>
