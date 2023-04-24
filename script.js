@@ -1,7 +1,7 @@
 const DESKTOP_BREAKPOINT = 480;
 window.addEventListener("load",function() {
   let heroVideoEl = document.getElementById("hero-video");
-  let heroVideoSrc = heroVideoEl.dataset.srcMobile
+  let heroVideoSrc = heroVideoEl.dataset.srcMobile;
   let viewportWidth = window.innerWidth;
   if (viewportWidth >= DESKTOP_BREAKPOINT) {
     heroVideoSrc = heroVideoEl.dataset.srcDesktop;
